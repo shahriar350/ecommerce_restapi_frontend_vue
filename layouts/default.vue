@@ -1,0 +1,203 @@
+<template>
+  <v-app>
+    <!--    mobile size bottom bar start -->
+    <div v-if="screenWidth < 960">
+      <v-bottom-navigation :fixed="true" :app="true">
+        <v-btn value="recent">
+          <span>Recent</span>
+
+          <v-icon>{{icon.mdiHistory}}</v-icon>
+        </v-btn>
+
+        <v-btn value="favorites">
+          <span>Favorites</span>
+
+          <v-icon>{{icon.mdiHeart}}</v-icon>
+        </v-btn>
+
+        <v-btn value="nearby">
+          <span>Nearby</span>
+
+          <v-icon>{{icon.mdiMapMarker}}</v-icon>
+        </v-btn>
+      </v-bottom-navigation>
+    </div>
+    <!--    mobile size bottom bar end -->
+    <v-main>
+      <v-container class="d-flex justify-end p-0 m-0">
+        <a v-if="auth && user.seller" href="/seller" class="text-end mb-0 d-inline-block" >Seller</a>
+        <nuxt-link class="p-0 m-0" to="/auth/seller/login" v-else>Sell on <em>BongoBitan</em></nuxt-link>
+      </v-container>
+      <v-container fluid>
+        <v-row class="py-2">
+          <v-col lg="2" md="3" sm="4" cols="6">
+            <nuxt-link to="/" class="d-flex align-center">
+              <!--              Logo-->
+              <logo></logo>
+              <!--              <v-img contain alt="bongobitan"-->
+              <!--                     :src="require('~/static/logo.png')"-->
+              <!--                     :lazy-src="require('~/static/logo.png')"-->
+              <!--                     ></v-img>-->
+            </nuxt-link>
+          </v-col>
+          <v-col>
+            <v-autocomplete
+              v-model="search"
+              :items="items"
+              outlined
+              deletable-chips
+              :dense="screenWidth < 600"
+              chips
+              small-chips
+              label="Search..."
+              multiple
+            >
+              <v-icon
+                slot="append"
+                color="red"
+              >
+                {{icon.mdiMagnify}}
+              </v-icon>
+            </v-autocomplete>
+          </v-col>
+          <client-only>
+            <v-col md="4" cols="12" v-if="screenWidth > 600" class="d-none d-md-block">
+              <div class="d-flex justify-space-between align-center grey lighten-5 py-2">
+                <v-menu offset-y>
+                  <template v-slot:activator="{ on, attrs }">
+                    <v-btn
+                      color="primary"
+                      dark
+                      v-bind="attrs"
+                      v-on="on"
+                    >
+                      Dropdown
+                    </v-btn>
+                  </template>
+                  <v-list>
+                    <v-list-item>
+                      <v-list-item-title>Profile</v-list-item-title>
+                    </v-list-item>
+                    <v-list-item to="/user/order" :nuxt="true">
+                      <v-list-item-title>Orders</v-list-item-title>
+                    </v-list-item>
+                  </v-list>
+                </v-menu>
+<!--                <v-menu-->
+<!--                  offset-y-->
+<!--                >-->
+<!--                  <template v-slot:activator="{ on, attrs }">-->
+<!--                    <v-btn-->
+<!--                      :icon="!auth"-->
+<!--                      v-bind="attrs"-->
+<!--                      v-on="on"-->
+<!--                    >-->
+<!--                      <span v-if="auth">{{ user.name }}</span>-->
+<!--                      <v-icon v-else>{{icon.mdiAccount}}</v-icon>-->
+<!--                    </v-btn>-->
+<!--                  </template>-->
+
+<!--                  <v-list>-->
+<!--                    <v-list-item v-if="auth" to="/user">-->
+<!--                      <v-list-item-title>Profile</v-list-item-title>-->
+<!--                    </v-list-item>-->
+<!--                    <v-list-item to="/cart">-->
+<!--                      <v-list-item-title>Cart</v-list-item-title>-->
+<!--                    </v-list-item>-->
+<!--                    <v-list-item to="/user/order">-->
+<!--                      <v-list-item-title>Order</v-list-item-title>-->
+<!--                    </v-list-item>-->
+<!--                  </v-list>-->
+<!--                </v-menu>-->
+
+                <div class="d-inline-block mr-4">
+                  <nuxt-link to="/cart">
+                    <v-badge
+                      color="green"
+                      :content="`${total_cart_products}`"
+                    >
+                      <v-icon>{{icon.mdiCartVariant}}</v-icon>
+                    </v-badge>
+                  </nuxt-link>
+                </div>
+              </div>
+
+            </v-col>
+          </client-only>
+        </v-row>
+
+        <div class="py-2">
+
+          <nuxt/>
+        </div>
+
+        <v-overlay :value="overlay">
+          <v-progress-circular
+            indeterminate
+            size="64"
+          ></v-progress-circular>
+        </v-overlay>
+        <v-snackbar
+          :value="snackbar"
+        >
+          {{ snackbar }}
+        </v-snackbar>
+      </v-container>
+    </v-main>
+  </v-app>
+</template>
+
+<script>
+import {mapGetters} from 'vuex'
+import {mdiMapMarker,mdiMagnify,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant} from '@mdi/js'
+export default {
+  created() {
+    this.get_cart_total()
+  },
+  data() {
+    return {
+      icon: {
+        mdiMagnify,mdiMapMarker,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant
+      },
+      search: '',
+      items: [
+        {title: 'Profile', link: '/user'},
+        {title: 'User Login', link: '/auth/user/login'},
+      ],
+      auth_user_actions: [
+        {title: 'Profile', link: '/user'},
+        {title: 'Cart', link: '/cart'},
+      ]
+    }
+  },
+  methods: {
+    async get_cart_total() {
+      this.$store.commit('replace_cart_count', 0)
+      if (this.auth) {
+        await this.$axios.get('/api/user/cart/total/')
+          .then(res => {
+            this.$store.commit('set_cart_count', res.data)
+          })
+      } else {
+        if (this.$cookies.get('bongo_cart') !== undefined) {
+          const carts = Object.keys(this.$cookies.get('bongo_cart')).length
+          this.$store.commit('set_cart_count', carts)
+        }
+      }
+
+    }
+  },
+
+  computed: {
+    ...mapGetters({
+      overlay: 'get_overlay',
+      snackbar: 'get_snackbar',
+      total_cart_products: 'get_cart_count'
+    })
+  }
+}
+</script>
+
+<style scoped>
+
+</style>
