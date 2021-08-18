@@ -76,7 +76,7 @@ export default {
     this.categories = category.data
     this.products = data.data.products
   },
-  fetchOnServer: false,
+  fetchOnServer: true,
 
   // async asyncData({ $axios }) {
   //   const data = await $axios.$get('/api/user/frontend/main/product/')
