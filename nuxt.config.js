@@ -5,7 +5,7 @@ export default {
   // dev: process.env.NODE_ENV !== 'production',
   // dev: true,
   // mode: 'universal',
-  // target: 'server',
+  // target: 'static',
   vue: {
     config: {
       productionTip: true,
@@ -36,7 +36,7 @@ export default {
     '~plugins/server_related',
     '~plugins/mixins',
     "~/plugins/errors.js",
-    {src: '~plugins/vue2editor', mode: 'client'}
+    {src: '~plugins/vue2editor', mode: 'client'},
   ],
 
   // Auto import components: https://go.nuxtjs.dev/config-components
@@ -46,7 +46,6 @@ export default {
   buildModules: [
     // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
-    'nuxt-compress',
     'nuxt-windicss',
 
   ],
@@ -59,7 +58,6 @@ export default {
     // https://go.nuxtjs.dev/pwa
     // '@nuxtjs/pwa',
     'cookie-universal-nuxt',
-    '@nuxtjs/sentry',
   ],
 
   // Axios module configuration: https://go.nuxtjs.dev/config-axios
@@ -117,20 +115,6 @@ export default {
     // // publicPath: 'http://127.0.0.1:8000/',
     optimizeCSS: true,
     extractCSS: true,
-    optimization: {
-      minimize: true,
-      splitChunks: {
-        name: true,
-        cacheGroups: {
-          styles: {
-            name: 'styles',
-            test: /\.(css|vue)$/,
-            chunks: 'all',
-            enforce: true
-          }
-        }
-      }
-    },
 
     vendor: [
       'vue2-editor',
@@ -139,22 +123,10 @@ export default {
       // 'vuetify',
       'vee-validate/dist/rules',
     ],
-    // extend (config, {isClient}) {
-    //   if (isClient){
-    //     config.optimization.splitChunks.maxSize = 200000;
-    //   }
-    // }
+
   },
   toast: {
     position: 'bottom-right',
     duration: 4000,
-  },
-  'nuxt-compress': {
-    gzip: {
-      threshold: 8192,
-    },
-    brotli: {
-      threshold: 8192,
-    },
   },
 }
