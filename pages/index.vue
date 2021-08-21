@@ -28,21 +28,21 @@
         </v-col>
 
       </v-row>
-<!--      <v-row dense class="grey lighten-5 px-2">-->
-<!--        <v-col cols="12" class="py-2 border md:text-xl text-lg gray&#45;&#45;text text&#45;&#45;lighten-1">Top Shops Categories:-->
-<!--        </v-col>-->
-<!--        <v-col lg="2" sm="3" cols="4" v-for="(category,index) in categories" :key="index">-->
-<!--          <v-card max-width="240" :nuxt="true" :to="`/frontend/shop/${category.slug}?cat=`">-->
-<!--            <img-mine :thumbnail="category.image">-->
-<!--              <template slot="text">-->
-<!--                <v-card-title>-->
-<!--                  <p class="white rounded px-2 py-1 d-inline">{{ category.name }}</p>-->
-<!--                </v-card-title>-->
-<!--              </template>-->
-<!--            </img-mine>-->
-<!--          </v-card>-->
-<!--        </v-col>-->
-<!--      </v-row>-->
+      <v-row dense class="grey lighten-5 px-2">
+        <v-col cols="12" class="py-2 border md:text-xl text-lg gray--text text--lighten-1">Top Shops Categories:
+        </v-col>
+        <v-col lg="2" sm="3" cols="4" v-for="(category,index) in categories" :key="index">
+          <v-card max-width="240" :nuxt="true" :to="`/frontend/shop/${category.slug}?cat=`">
+            <img-mine :thumbnail="category.image">
+              <template slot="text">
+                <v-card-title>
+                  <p class="white rounded px-2 py-1 d-inline">{{ category.name }}</p>
+                </v-card-title>
+              </template>
+            </img-mine>
+          </v-card>
+        </v-col>
+      </v-row>
     </div>
 
   </v-main>
@@ -80,11 +80,11 @@ export default {
   //   }
   // },
   mounted() {
-    const chatSocket = new WebSocket(
-      'ws://http://saifshahriar.pythonanywhere.com/ws/');
-    chatSocket.onclose = function (e) {
-      console.error('Chat socket closed unexpectedly');
-    };
+    // const chatSocket = new WebSocket(
+    //   'ws://http://saifshahriar.pythonanywhere.com/ws/');
+    // chatSocket.onclose = function (e) {
+    //   console.error('Chat socket closed unexpectedly');
+    // };
     this.$axios.get('/api/user/frontend/category/related/')
       .then(res => {
         this.type_variance = res.data

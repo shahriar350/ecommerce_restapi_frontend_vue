@@ -113,7 +113,6 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // // publicPath: 'http://127.0.0.1:8000/',
-    optimizeCSS: true,
     extractCSS: true,
 
     vendor: [
