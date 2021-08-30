@@ -1,28 +1,5 @@
 <template>
   <v-app>
-    <!--    mobile size bottom bar start -->
-    <div v-if="screenWidth < 960">
-      <v-bottom-navigation :fixed="true" :app="true">
-        <v-btn value="recent">
-          <span>Recent</span>
-
-          <v-icon>{{icon.mdiHistory}}</v-icon>
-        </v-btn>
-
-        <v-btn value="favorites">
-          <span>Favorites</span>
-
-          <v-icon>{{icon.mdiHeart}}</v-icon>
-        </v-btn>
-
-        <v-btn value="nearby">
-          <span>Nearby</span>
-
-          <v-icon>{{icon.mdiMapMarker}}</v-icon>
-        </v-btn>
-      </v-bottom-navigation>
-    </div>
-    <!--    mobile size bottom bar end -->
     <v-main>
       <v-container class="d-flex justify-end p-0 m-0">
         <a v-if="auth && user.seller" href="/seller" class="text-end mb-0 d-inline-block" >Seller</a>
@@ -83,33 +60,6 @@
                     </v-list-item>
                   </v-list>
                 </v-menu>
-<!--                <v-menu-->
-<!--                  offset-y-->
-<!--                >-->
-<!--                  <template v-slot:activator="{ on, attrs }">-->
-<!--                    <v-btn-->
-<!--                      :icon="!auth"-->
-<!--                      v-bind="attrs"-->
-<!--                      v-on="on"-->
-<!--                    >-->
-<!--                      <span v-if="auth">{{ user.name }}</span>-->
-<!--                      <v-icon v-else>{{icon.mdiAccount}}</v-icon>-->
-<!--                    </v-btn>-->
-<!--                  </template>-->
-
-<!--                  <v-list>-->
-<!--                    <v-list-item v-if="auth" to="/user">-->
-<!--                      <v-list-item-title>Profile</v-list-item-title>-->
-<!--                    </v-list-item>-->
-<!--                    <v-list-item to="/cart">-->
-<!--                      <v-list-item-title>Cart</v-list-item-title>-->
-<!--                    </v-list-item>-->
-<!--                    <v-list-item to="/user/order">-->
-<!--                      <v-list-item-title>Order</v-list-item-title>-->
-<!--                    </v-list-item>-->
-<!--                  </v-list>-->
-<!--                </v-menu>-->
-
                 <div class="d-inline-block mr-4">
                   <nuxt-link to="/cart">
                     <v-badge

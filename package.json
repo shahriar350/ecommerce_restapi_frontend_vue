@@ -26,6 +26,7 @@
     "@mdi/js": "^5.9.55",
     "@nuxtjs/netlify-files": "^1.2.0",
     "@nuxtjs/vuetify": "^1.12.1",
-    "nuxt-windicss": "^1.2.1"
+    "nuxt-windicss": "^1.2.1",
+    "vuex": "^3.6.2"
   }
 }
