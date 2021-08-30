@@ -12,11 +12,7 @@
               class="mx-auto"
               max-width="344"
             >
-              <v-img v-if="shop.banner"
-                     :src="shop.banner"
-                     height="200px"
-                     contain
-              ></v-img>
+              <img-mine :thumbnail="shop.banner" />
 
               <v-card-title>
                 {{ shop.name }}
@@ -64,10 +60,7 @@
                 class="mx-auto"
                 max-width="344"
               >
-                <v-img
-                  :src="shop.banner"
-                  height="200px"
-                ></v-img>
+                <img-mine :thumbnail="shop.banner" />
 
                 <v-card-title>
                   {{ shop.name }}
@@ -97,10 +90,7 @@
                 class="mx-auto"
                 max-width="344"
               >
-                <v-img v-if="shop.banner"
-                       :src="shop.banner"
-                       height="200px"
-                ></v-img>
+                <img-mine :thumbnail="shop.banner" />
 
                 <v-card-title>
                   {{ shop.name }}
@@ -234,6 +224,7 @@
 import {extend, ValidationObserver, ValidationProvider, setInteractionMode} from 'vee-validate'
 import {required, image} from 'vee-validate/dist/rules'
 import {mdiClose} from '@mdi/js'
+import ImgMine from "../../../components/my_image";
 setInteractionMode('eager')
 extend('required', {
   ...required,
@@ -245,6 +236,7 @@ extend('image', {
 })
 export default {
   components: {
+    ImgMine,
     ConfirmDlg: () => import('../../../components/confirm'),
     ValidationProvider,
     ValidationObserver,
