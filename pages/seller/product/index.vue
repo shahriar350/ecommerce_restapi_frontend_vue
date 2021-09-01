@@ -12,13 +12,13 @@
     </div>
     <div v-else>
       <div class="mt-4">
-        <div  class="d-flex flex-wrap elevation-1 rounded pb-4 px-3">
-          <v-card-text class="headline">Active products</v-card-text>
-          <v-card v-if="products.length" v-for="(data,index) in products" :key="index" class="mr-3">
-            <v-card-title>
+        <div  class="d-flex flex-wrap flex-sm-row flex-column justify-space-between elevation-1 rounded pb-4 px-3">
+          <v-card-text class="headline text-md-h6 text-h6">Active products</v-card-text>
+          <v-card v-if="products.length" v-for="(data,index) in products" :key="index" class="mr-3 my-md-0 my-2">
+            <v-card-title class="text-subtitle-2">
               {{data.name | capfirst}}
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="text-body-2">
               <p class="">Product price: <span class="font-weight-bold">{{ data.product_price}}/Taka</span></p>
               <p class="">Selling price: <span class="font-weight-bold">{{ data.selling_price}}/Taka</span></p>
               <p class="">Quantity: <span class="font-weight-bold">{{ data.quantity}}</span></p>
@@ -34,14 +34,14 @@
       <!--    trash product start-->
 
       <div class="mt-4">
-        <div  class="d-flex flex-wrap elevation-1 rounded pb-4 px-3">
-          <v-card-text class="headline">Trash products</v-card-text>
-          <v-card-text v-if="trash_products.length < 1">No data available</v-card-text>
+        <div  class="d-flex flex-wrap flex-sm-row flex-column justify-space-between elevation-1 rounded pb-4 px-3">
+          <v-card-text class="headline text-md-h6 text-h6">Trash products</v-card-text>
+          <v-card-text v-if="trash_products.length < 1" class="text-md-h6">No data available</v-card-text>
           <v-card v-else v-for="(data,index) in trash_products" :key="index" class="mr-3">
-            <v-card-title>
+            <v-card-title class="text-subtitle-2">
               {{data.name | capfirst}}
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="text-body-2">
               <p class="">Product price: <span class="font-weight-bold">{{ data.product_price}}/Taka</span></p>
               <p class="">Selling price: <span class="font-weight-bold">{{ data.selling_price}}/Taka</span></p>
               <p class="">Quantity: <span class="font-weight-bold">{{ data.quantity}}</span></p>
@@ -60,14 +60,14 @@
       </div>
       <!--    inactivate product start-->
       <div class="mt-4">
-        <div  class="d-flex flex-wrap elevation-1 rounded pb-4 px-3">
-          <v-card-text class="headline">Inactive products</v-card-text>
-          <v-card-text v-if="inactive_products.length < 1">No data available</v-card-text>
+        <div  class="d-flex flex-wrap flex-sm-row flex-column justify-space-between elevation-1 rounded pb-4 px-3">
+          <v-card-text class="headline text-md-h6 text-h6">Inactive products</v-card-text>
+          <v-card-text v-if="inactive_products.length < 1"  class="text-md-h6">No data available</v-card-text>
           <v-card v-else v-for="(data,index) in inactive_products" :key="index" class="mr-3">
-            <v-card-title>
+            <v-card-title class="text-subtitle-2">
               {{data.name | capfirst}}
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="text-body-2">
               <p class="">Product price: <span class="font-weight-bold">{{ data.product_price}}/Taka</span></p>
               <p class="">Selling price: <span class="font-weight-bold">{{ data.selling_price}}/Taka</span></p>
               <p class="">Quantity: <span class="font-weight-bold">{{ data.quantity}}</span></p>
@@ -94,20 +94,19 @@
     >
 
       <v-card :loading="loading" :disabled="loading">
-        <v-card-title class="headline grey lighten-2">
+        <v-card-title class="text-button grey lighten-2">
           Your shops
         </v-card-title>
         <v-card-text class="mt-2">
-          <v-card v-for="(shop,index) in shops" :key="index" :to="`/seller/product/create/${shop.slug}`">
-            <v-card-title>
-              {{ shop.name }}
+          <v-card class="my-2" v-for="(shop,index) in shops" :key="index" :to="`/seller/product/create/${shop.slug}`">
+            <v-card-title class="text-md-subtitle-1 text-subtitle-2">
+              {{ shop.name | capfirst }}
             </v-card-title>
-            <v-card-subtitle>
+            <v-card-subtitle class="text-md-subtitle-2 text-caption">
               {{ shop.contact_number }}
+              <span class="mt-1 d-block">{{ shop.business_location }}</span>
             </v-card-subtitle>
-            <v-card-text>
-              {{ shop.business_location }}
-            </v-card-text>
+
           </v-card>
 
         </v-card-text>

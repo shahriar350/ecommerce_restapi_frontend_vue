@@ -1,20 +1,20 @@
 <template>
   <div>
     <div>
-      <v-card class="d-flex justify-sm-space-between flex-sm-row flex-column">
+      <v-card class="d-flex flex-md-row flex-column align-center justify-md-space-between">
 
         <v-breadcrumbs v-if="items.length"
                        :items="items"
-                       divider=">"
+                       divider=">" class="p-0"
         >
           <template v-slot:item="{ item }">
 
               <nuxt-link
                 :to="item.href"
-                class="text-decoration-none"
+                class="text-decoration-none text-md-body-2 text-caption"
                 no-prefetch
               >
-                <v-breadcrumbs-item :disabled="item.disabled">
+                <v-breadcrumbs-item :disabled="item.disabled" class="text-md-body-2 text-caption">
                   {{ item.text.toUpperCase() }}
                 </v-breadcrumbs-item>
 
@@ -22,8 +22,8 @@
           </template>
         </v-breadcrumbs>
 
-        <div v-if="item_name" class="align-self-sm-center align-self-end mx-4 mb-sm-0 mb-3">
-          <v-btn :nuxt="true" :to="item_name.url" depressed color="primary">{{ item_name.name }}</v-btn>
+        <div v-if="item_name" class="">
+          <v-btn :small="screenWidth < 960" :nuxt="true" :to="item_name.url" depressed color="primary" class="text-md-body-2 text-caption">{{ item_name.name }}</v-btn>
         </div>
 
       </v-card>
@@ -51,4 +51,9 @@ export default {
 
 <style scoped>
 
+@media screen and (max-width: 960px) {
+  .v-breadcrumbs{
+    padding: 5px 0;
+  }
+}
 </style>

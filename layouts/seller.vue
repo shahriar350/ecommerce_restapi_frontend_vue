@@ -51,7 +51,7 @@
       </v-app-bar-nav-icon>
       <!--      <v-toolbar-title v-text="title"/>-->
       <v-toolbar-title>
-        <nuxt-link to="/">Bongobitan</nuxt-link>
+        <nuxt-link to="/">Bongobitan Seller</nuxt-link>
       </v-toolbar-title>
     </v-app-bar>
     <v-main>
