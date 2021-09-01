@@ -119,11 +119,12 @@
               <div class="subheading">
                 Next stock date
               </div>
+<!--              <v-date-picker v-model="picker"></v-date-picker>-->
               <v-date-picker
                 :min="new Date().toISOString().slice(0, 10)"
                 v-model="product.next_stock_date"
+                :landscape="screenWidth > 500"
                 full-width
-                landscape
               ></v-date-picker>
             </div>
             <v-btn type="submit" block>Update basic</v-btn>
