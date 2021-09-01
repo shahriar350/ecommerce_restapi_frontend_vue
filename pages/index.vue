@@ -2,13 +2,13 @@
   <v-main>
     <loading_page v-if="$fetchState.pending"></loading_page>
     <div v-else>
-      <v-row>
-        <v-col lg="2" md="3" sm="4" cols="6" v-for="(product,index) in products" :key="index">
+      <v-row :dense="dense">
+        <v-col lg="2" md="2" sm="3" cols="4" v-for="(product,index) in products" :key="index">
           <v-card max-width="344" :to="{path: `/product/${product.slug}/${product.id}`}" :nuxt="true">
             <img-mine :thumbnail="product.get_product_image[0].image"/>
-            <v-card-title>{{ product.name | capfirst }}</v-card-title>
-            <v-card-subtitle>
-              <div>
+            <v-card-title class="text-md-subtitle-1 text-subtitle-2 font-weight-medium">{{ product.name | capfirst }}</v-card-title>
+            <v-card-subtitle class="text-sm-body-1 text-body-2">
+              <div >
                 <p v-if="product.multi_price">{{ product.multi_price }}</p>
                 <div v-else>
                   <div class="d-inline-block">&#2547{{
@@ -36,7 +36,7 @@
             <img-mine :thumbnail="category.image">
               <template slot="text">
                 <v-card-title>
-                  <p class="white rounded px-2 py-1 d-inline">{{ category.name }}</p>
+                  <p class="white rounded px-2 py-1 d-inline text-lg-h6 text-sm-subtitle-1 text-subtitle-2 font-weight-medium">{{ category.name | capfirst }}</p>
                 </v-card-title>
               </template>
             </img-mine>
@@ -70,16 +70,8 @@ export default {
     this.products = data.data.products
   },
   fetchOnServer: true,
-
-  // async asyncData({ $axios }) {
-  //   const data = await $axios.$get('/api/user/frontend/main/product/')
-  //   // const related = await $axios.$get('/api/user/frontend/category/related/')
-  //   return {
-  //     // category: related,
-  //     products: data.products
-  //   }
-  // },
   mounted() {
+    console.log(process.env.NODE_ENV)
     // const chatSocket = new WebSocket(
     //   'ws://http://saifshahriar.pythonanywhere.com/ws/');
     // chatSocket.onclose = function (e) {
@@ -90,10 +82,17 @@ export default {
         this.type_variance = res.data
       })
   },
-  methods: {
-    hello() {
-      console.log('hello world')
-    }
+
+  computed: {
+    dense () {
+      switch (this.$vuetify.breakpoint.name) {
+        case 'xs': return true
+        case 'sm': return true
+        case 'md': return false
+        case 'lg': return false
+        case 'xl': return false
+      }
+    },
   },
   filters: {
     offer: function (value, offer_percent, start, end) {

@@ -104,6 +104,7 @@ export default {
   created() {
     this.get_cart_total()
   },
+
   data() {
     return {
       icon: {

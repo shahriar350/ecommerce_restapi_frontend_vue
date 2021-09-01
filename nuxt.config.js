@@ -24,7 +24,9 @@ export default {
       {name: 'format-detection', content: 'telephone=no'}
     ],
     link: [
-      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'}
+      {rel: 'icon', type: 'image/x-icon', href: '/favicon.ico'},
+      {rel: 'preconnect', href: 'https://fonts.googleapis.com'},
+      {rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900'},
     ]
   },
   // serverMiddleware: ['~/server-middleware/logger'],
@@ -67,7 +69,7 @@ export default {
   },
   proxy: {
     '/api/': {
-      target: 'http://saifshahriar.pythonanywhere.com/',
+      target: process.env.NODE_ENV === 'development' ? 'http://127.0.0.1:8000/' : 'http://saifshahriar.pythonanywhere.com/',
       pathRewrite: {
         '^/api/': 'api/'
       }
