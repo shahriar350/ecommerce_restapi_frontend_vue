@@ -88,7 +88,7 @@ export default {
     icons: {
       iconfont: 'mdiSvg', // default - only for display purposes
     },
-    treeShake: true,
+    // treeShake: true,
     defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
     theme: {
