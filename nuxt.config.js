@@ -6,12 +6,7 @@ export default {
   // dev: true,
   // mode: 'universal',
   // target: 'static',
-  vue: {
-    config: {
-      productionTip: true,
-      devtools: true
-    }
-  },
+
 
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -88,7 +83,7 @@ export default {
     icons: {
       iconfont: 'mdiSvg', // default - only for display purposes
     },
-    // treeShake: true,
+    treeShake: true,
     defaultAssets: false,
     customVariables: ['~/assets/variables.scss'],
     theme: {
@@ -115,8 +110,28 @@ export default {
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
     // // publicPath: 'http://127.0.0.1:8000/',
-    // extractCSS: true,
-
+    extractCSS: true,
+    optimization: {
+      minimize: true,
+      splitChunks: {
+        cacheGroups: {
+          styles: {
+            name: 'styles',
+            test: /\.(css|vue)$/,
+            chunks: 'all',
+            enforce: true
+          }
+        }
+      }
+    },
+    filenames: {
+      app: ({ isDev, isModern }) => isDev ? `[name]${isModern ? '.modern' : ''}.js` : `[contenthash:7]${isModern ? '.modern' : ''}.js`,
+      chunk: ({ isDev, isModern }) => isDev ? `[name]${isModern ? '.modern' : ''}.js` : `[contenthash:7]${isModern ? '.modern' : ''}.js`,
+      css: ({ isDev }) => isDev ? '[name].css' : 'css/[contenthash:7].css',
+      img: ({ isDev }) => isDev ? '[path][name].[ext]' : 'img/[name].[contenthash:7].[ext]',
+      font: ({ isDev }) => isDev ? '[path][name].[ext]' : 'fonts/[name].[contenthash:7].[ext]',
+      video: ({ isDev }) => isDev ? '[path][name].[ext]' : 'videos/[name].[contenthash:7].[ext]'
+    },
     vendor: [
       'vue2-editor',
     ],
