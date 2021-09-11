@@ -37,8 +37,6 @@
 import {mapGetters} from 'vuex'
 
 export default {
-
-  middleware: 'is_seller',
   layout: 'seller',
   computed: {
     ...mapGetters({

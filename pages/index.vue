@@ -69,9 +69,8 @@ export default {
     this.categories = category.data
     this.products = data.data.products
   },
-  fetchOnServer: true,
+  // fetchOnServer: false,
   mounted() {
-    console.log(process.env.NODE_ENV)
     // const chatSocket = new WebSocket(
     //   'ws://http://saifshahriar.pythonanywhere.com/ws/');
     // chatSocket.onclose = function (e) {

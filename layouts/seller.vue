@@ -1,5 +1,5 @@
 <template>
-  <v-app v-if="user.seller">
+  <v-app v-if="auth && user.seller">
     <v-navigation-drawer
       v-model="drawer"
       :mini-variant="false"
@@ -82,9 +82,8 @@
 import {mapGetters} from 'vuex'
 import {mdiApps, mdiStore, mdiVectorRectangle, mdiCartCheck, mdiMenu} from "@mdi/js";
 export default {
-  components: {
+  middleware: 'is_seller',
 
-  },
   computed: {
     ...mapGetters({
       overlay: 'get_overlay',
