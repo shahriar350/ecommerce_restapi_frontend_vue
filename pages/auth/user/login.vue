@@ -8,8 +8,12 @@
         >
 
           <form @submit.prevent="login_now">
-            <v-card-title>
-              User login
+            <v-card-title class="d-flex justify-space-between">
+              <div>User Login</div>
+              <div>
+                <v-btn color="primary" to="/auth/user/register" :nuxt="true">Register</v-btn>
+              </div>
+
             </v-card-title>
             <v-card-subtitle v-if="response_error.length" class="red lighten-5 px-2 py-2 mt-1 mb-5">
               <p v-for="(error,index) in response_error" class="mb-2">
@@ -53,9 +57,7 @@
             <v-card-actions>
               <v-btn block type="submit" color="primary">Submit</v-btn>
             </v-card-actions>
-            <v-card-subtitle>
-              <nuxt-link to="/auth/user/register">Register</nuxt-link>
-            </v-card-subtitle>
+
           </form>
         </validation-observer>
       </v-card>

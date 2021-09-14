@@ -127,6 +127,7 @@
     </v-dialog>
     <!--    shop select to create product end-->
     <confirm ref="confirm"/>
+
   </div>
 </template>
 

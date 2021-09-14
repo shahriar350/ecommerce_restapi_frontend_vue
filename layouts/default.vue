@@ -92,14 +92,34 @@
         >
           {{ snackbar }}
         </v-snackbar>
+        <client-only v-if="screenWidth < 600">
+          <div class="overflow-hidden" >
+            <v-bottom-navigation
+              app
+              fixed
+              color="primary"
+              class="p-0"
+            >
+              <v-btn class="white" style="height: 100% !important;" to="/cart" :nuxt="true">
+                <span>Cart</span>
+
+                <v-icon>{{icon.mdiCartMinus}} </v-icon>
+              </v-btn>
+
+
+            </v-bottom-navigation>
+          </div>
+        </client-only>
       </v-container>
+
     </v-main>
+
   </v-app>
 </template>
 
 <script>
 import {mapGetters} from 'vuex'
-import {mdiMapMarker,mdiMagnify,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant} from '@mdi/js'
+import {mdiMapMarker,mdiMagnify,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant,mdiCartMinus } from '@mdi/js'
 export default {
   created() {
     this.get_cart_total()
@@ -107,8 +127,10 @@ export default {
 
   data() {
     return {
+      value: 1,
+      active: true,
       icon: {
-        mdiMagnify,mdiMapMarker,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant
+        mdiMagnify,mdiMapMarker,mdiHistory,mdiHeart,mdiAccount,mdiCartVariant,mdiCartMinus
       },
       search: '',
       items: [

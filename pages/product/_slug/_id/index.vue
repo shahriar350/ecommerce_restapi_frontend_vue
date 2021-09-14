@@ -10,29 +10,53 @@
                   <div @click="showImageBig(img.image)"
                        class="cursor-pointer mb-2">
 
-                    <img-mine :thumbnail="img.image" height="50" />
+                    <img-mine :thumbnail="img.image" height="50"/>
                   </div>
                 </v-col>
               </v-row>
 
             </v-col>
 
-            <v-col cols="12" sm="10">
+            <v-col cols="12" sm="10" v-if="$vuetify.breakpoint.mdAndUp">
               <client-only>
-                <v-zoomer style="width: 100%; height: 500px; border: solid 1px silver;">
+                <span >
+                  <v-zoomer style="width: 100%; height: 500px; border: solid 1px silver;">
                   <img
                     :src="show_product_image"
                     style="object-fit: contain; width: 100%; height: 100%;"
-                    alt="image" >
+                    :alt="product.name">
                 </v-zoomer>
+                </span>
+
+                <img
+
+                     :src="show_product_image"
+                     style="object-fit: contain; width: 100%; height: 100%;"
+                     :alt="product.name">
               </client-only>
 
               <small>Scroll or zoom in</small>
-<!--              <client-only placeholder="loading...">-->
-<!--                <zoom-on-hover alt="product image" :img-normal="show_product_image" :img-zoom="show_product_image"-->
-<!--                               :scale="1.5"-->
-<!--                ></zoom-on-hover>-->
-<!--              </client-only>-->
+              <!--              <client-only placeholder="loading...">-->
+              <!--                <zoom-on-hover alt="product image" :img-normal="show_product_image" :img-zoom="show_product_image"-->
+              <!--                               :scale="1.5"-->
+              <!--                ></zoom-on-hover>-->
+              <!--              </client-only>-->
+
+              <!--              <v-img :lazy-src="show_product_image" :src="show_product_image"/>-->
+            </v-col>
+            <v-col cols="12" sm="10" v-else>
+              <client-only>
+                <img
+                  @click="image_full_modal=true"
+                  :src="show_product_image"
+                  style="object-fit: contain; width: 100%; height: 100%;"
+                  :alt="product.name">
+              </client-only>
+              <!--              <client-only placeholder="loading...">-->
+              <!--                <zoom-on-hover alt="product image" :img-normal="show_product_image" :img-zoom="show_product_image"-->
+              <!--                               :scale="1.5"-->
+              <!--                ></zoom-on-hover>-->
+              <!--              </client-only>-->
 
               <!--              <v-img :lazy-src="show_product_image" :src="show_product_image"/>-->
             </v-col>
@@ -124,6 +148,42 @@
         </v-col>
       </v-row>
     </v-container>
+    <!--    image full screen when mobile mode start-->
+    <v-dialog
+      scrollable
+      v-model="image_full_modal"
+      max-width="100%"
+    >
+      <v-card>
+        <v-card-text>
+
+          <v-row :dense="true">
+            <v-col v-for="(img,index) in product.get_product_image" :key="index">
+              <div
+                class="cursor-pointer mb-2">
+
+                <img-mine :thumbnail="img.image" height="50"/>
+              </div>
+            </v-col>
+          </v-row>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+
+          <v-btn
+            color="green darken-1"
+            text
+            @click="image_full_modal = false"
+          >
+            Close
+          </v-btn>
+
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
+
+    <!--    image full screen when mobile mode end-->
   </div>
 </template>
 
@@ -143,6 +203,7 @@ export default {
   },
   data() {
     return {
+      image_full_modal: false,
       items: [1, 2, 3, 4, 5],
       model: 0,
       product_price: '',

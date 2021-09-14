@@ -20,7 +20,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template #item.action="{ item , index}">
               <v-btn @click="change_order_status(item.id,1,index)" color="blue" class="mb-1" small>Processing</v-btn>
@@ -48,7 +48,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template #item.action="{ item , index}">
               <v-btn @click="change_order_status(item.id,2,index)" color="blue" class="mb-1" small>Packaging</v-btn>
@@ -76,7 +76,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template #item.action="{ item , index}">
               <v-btn @click="change_order_status(item.id,3,index)" color="blue" class="mb-1" small>On-way</v-btn>
@@ -103,7 +103,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template #item.action="{ item , index}">
               <v-btn @click="change_order_status(item.id,4,index)" color="blue" class="mb-1" small>Reached destination</v-btn>
@@ -131,7 +131,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template #item.action="{ item ,index }">
               <v-btn color="blue" class="mb-1" small>Waiting for received</v-btn>
@@ -157,7 +157,7 @@
                 calculate_order(item.selling_price,item.quantity,item.offer_price) }}
             </template>
             <template #item.created="{ item }">
-              {{ new Date(item.created).toUTCString() }}
+              {{ new Date(item.created).toJSON().substring(0,19).replace('T',' ') }}
             </template>
             <template slot="no-data">No data is available</template>
           </v-data-table>

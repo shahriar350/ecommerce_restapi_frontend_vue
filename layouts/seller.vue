@@ -29,8 +29,7 @@
           v-for="(item, i) in items"
           :key="i"
           :to="item.to"
-          router
-          exact
+          :nuxt="true"
         >
           <v-list-item-action>
             <v-icon>{{ item.icon }}</v-icon>
@@ -101,7 +100,7 @@ export default {
         {
           icon: mdiApps,
           title: 'Dashboard',
-          to: '/seller'
+          to: '/seller/dashboard'
         },
         {
           icon: mdiStore,

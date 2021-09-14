@@ -1,7 +1,9 @@
 <template>
   <v-main>
     <loading_page v-if="$fetchState.pending"></loading_page>
+    <v-alert :icon="icons.mdiAlertCircle" type="error" border="left" v-else-if="$fetchState.error">Something is error. Please reload.</v-alert>
     <div v-else>
+      <v-btn @click="get_data()">get data</v-btn>
       <v-row :dense="dense">
         <v-col lg="2" md="2" sm="3" cols="4" v-for="(product,index) in products" :key="index">
           <v-card max-width="344" :to="{path: `/product/${product.slug}/${product.id}`}" :nuxt="true">
@@ -52,14 +54,17 @@
 
 import Loading_page from "../components/loading_page";
 import ImgMine from "../components/my_image";
-
+import {mdiAlertCircle} from '@mdi/js'
 export default {
   components: {ImgMine, Loading_page},
   data() {
     return {
       type_variance: [],
       products: [],
-      categories: []
+      categories: [],
+      icons: {
+        mdiAlertCircle,
+      }
     }
   },
 
@@ -69,8 +74,9 @@ export default {
     this.categories = category.data
     this.products = data.data.products
   },
-  // fetchOnServer: false,
+  fetchOnServer: true,
   mounted() {
+
     // const chatSocket = new WebSocket(
     //   'ws://http://saifshahriar.pythonanywhere.com/ws/');
     // chatSocket.onclose = function (e) {
@@ -81,7 +87,14 @@ export default {
         this.type_variance = res.data
       })
   },
-
+  methods: {
+    get_data(){
+      this.$axios.get('/api/seller/total_earning/')
+        .then(res => {
+          console.log(res.data)
+        })
+    }
+  },
   computed: {
     dense () {
       switch (this.$vuetify.breakpoint.name) {

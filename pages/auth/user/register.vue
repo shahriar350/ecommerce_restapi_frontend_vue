@@ -9,8 +9,12 @@
         >
 
           <form @submit.prevent="register_now">
-            <v-card-title>
-              User registration
+            <v-card-title class="d-flex justify-space-between">
+              <div>User registration</div>
+              <div>
+                <v-btn color="primary" to="/auth/user/login"  :nuxt="true">Login</v-btn>
+              </div>
+
             </v-card-title>
             <v-card-text>
               <validation-provider
@@ -64,9 +68,6 @@
             <v-card-actions>
               <v-btn block type="submit" color="primary">Submit</v-btn>
             </v-card-actions>
-            <v-card-subtitle>
-              <nuxt-link to="/auth/user/login">Login</nuxt-link>
-            </v-card-subtitle>
           </form>
         </validation-observer>
       </v-card>

@@ -533,6 +533,7 @@ export default {
     return {
       all_variations: [],
       images: [],
+      additional_image: [],
       product_offer_price: '',
       product_offer_date: [],
       dialog: false,
